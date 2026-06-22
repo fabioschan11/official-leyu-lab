@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>竞彩网 · 赛事数据分析平台</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f9fc;
+      color: #1a2b3c;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 顶部导航 */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid #d9e6ed;
+    }
+
+    .logo {
+      font-weight: 600;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+      color: #0f5c6b;
+    }
+
+    .logo span {
+      color: #2b9b8a;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #1a2b3c;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #287a7a;
+    }
+
+    .nav-cta {
+      background: #1f7a7a;
+      color: #fff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: default;
+      background: #267a72;
+    }
+
+    /* Hero 区 */
+    .hero {
+      padding: 60px 0 50px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 600;
+      color: #083b44;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .hero .sub {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      font-size: 1.05rem;
+      color: #2f4b56;
+      background: #e3f0f2;
+      padding: 18px 24px;
+      border-radius: 40px;
+      border: 1px solid #b7d3db;
+    }
+
+    .hero .sub a {
+      color: #0b5d5a;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .hero .sub a:hover {
+      color: #063b38;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      color: #3d5c66;
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tagline span {
+      background: #ffffffcc;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      border: 1px solid #c8dbe3;
+    }
+
+    /* 卡片网格 - 场景模块 */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin: 48px 0 40px;
+    }
+
+    .scene-card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 28px 22px;
+      box-shadow: 0 6px 16px rgba(27, 66, 79, 0.06);
+      border: 1px solid #d7e6ec;
+      transition: transform 0.15s ease, box-shadow 0.2s;
+    }
+
+    .scene-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px rgba(18, 56, 66, 0.08);
+    }
+
+    .scene-card .icon {
+      background: #d7ecea;
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+      color: #0b5c5a;
+    }
+
+    .scene-card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #14424e;
+    }
+
+    .scene-card p {
+      font-size: 0.95rem;
+      color: #2d4b57;
+      line-height: 1.5;
+    }
+
+    /* 说明区块 (FAQ 摘要) */
+    .faq-summary {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 28px;
+      background: #e3f0f2;
+      padding: 32px 30px;
+      border-radius: 28px;
+      margin: 36px 0 50px;
+      border: 1px solid #bdd5dd;
+    }
+
+    .faq-item {
+      flex: 1 1 200px;
+    }
+
+    .faq-item .q {
+      font-weight: 600;
+      color: #083b44;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .faq-item .a {
+      color: #2a4a57;
+      font-size: 0.95rem;
+    }
+
+    .faq-item .a a {
+      color: #0d5f5a;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .faq-item .a a:hover {
+      color: #053532;
+    }
+
+    /* 脚注 */
+    .footer-note {
+      border-top: 1px solid #cbdde5;
+      padding: 24px 0 36px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: #38616e;
+      font-size: 0.85rem;
+    }
+
+    .footer-note a {
+      color: #14635e;
+      font-weight: 500;
+    }
+
+    /* 响应式 */
+    @media (max-width: 860px) {
+      .scene-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+      .hero .sub {
+        font-size: 0.95rem;
+        padding: 14px 18px;
+      }
+      .tagline {
+        gap: 12px;
+      }
+      .scene-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .faq-summary {
+        padding: 22px 18px;
+        flex-direction: column;
+      }
+      .footer-note {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- 导航 -->
+  <nav class="navbar">
+    <div class="logo">竞彩<span>指南</span></div>
+    <ul class="nav-links">
+      <li><a href="#how">场景</a></li>
+      <li><a href="#faq">说明</a></li>
+      <li><a href="https://webindex-jingcai.com">竞彩网</a></li>
+    </ul>
+    <div class="nav-cta">数据导航</div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>定位赛事数据 · 快速判断网站用途</h1>
+    <div class="sub">
+      <a href="https://webindex-jingcai.com">竞彩网</a> 聚焦主流足球、篮球赛事指数与变动记录，适合希望按联赛、队伍、时间线检索的理性用户。
+    </div>
+    <div class="tagline">
+      <span>⚽ 联赛覆盖 60+</span>
+      <span>🏀 篮球主流</span>
+      <span>📊 指数历史</span>
+    </div>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <div class="scene-grid" id="how">
+    <div class="scene-card">
+      <div class="icon">📋</div>
+      <h3>按赛事归类</h3>
+      <p>从英超、西甲、NBA 到欧冠、日职、澳超，页面按比赛日与联赛分级展示，减少信息过载。每个联赛独立卡片，赔率变化即时可见。</p>
+    </div>
+    <div class="scene-card">
+      <div class="icon">⏳</div>
+      <h3>时间轴回溯</h3>
+      <p>不只看当前指数——提供近 3 天、近一周的初盘与即时对比。适合关注走势而非单点数据的用户，发现早期信号。</p>
+    </div>
+    <div class="scene-card">
+      <div class="icon">🔍</div>
+      <h3>队伍筛选</h3>
+      <p>直接搜索队名或简称，快速定位某支球队的近期赛事与对应指数。过滤无关场次，提升信息获取效率。</p>
+    </div>
+  </div>
+
+  <!-- 常见说明 (FAQ 摘要) -->
+  <div class="faq-summary" id="faq">
+    <div class="faq-item">
+      <div class="q">· 数据来源？</div>
+      <div class="a">整合公开赛事数据和主要指数平台，页面内所有链接指向 <a href="https://webindex-jingcai.com">竞彩网</a> 对应分类。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">· 更新频率？</div>
+      <div class="a">比赛日每 5–10 分钟自动刷新指数，非比赛时段每日固定更新两次。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">· 是否包含推荐？</div>
+      <div class="a">不提供结论或预测，只做客观数据呈现与历史对比。用户自行判断。</div>
+    </div>
+    <div class="faq-item">
+      <div class="q">· 移动端适配？</div>
+      <div class="a">卡片式布局，在手机浏览器上可单手滑动查看。建议横屏浏览更多列。</div>
+    </div>
+  </div>
+
+  <!-- 底部 -->
+  <footer class="footer-note">
+    <span>© 竞彩数据导航 · 理性参考</span>
+    <span>
+      <a href="https://webindex-jingcai.com">竞彩网</a> — 赛事指数与变动记录
+    </span>
+    <span>页面仅作介绍用途</span>
+  </footer>
+</div>
+
+</body>
+</html>
